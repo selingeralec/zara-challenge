@@ -28,7 +28,7 @@ export default function PhoneListPage() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
+    <div className="phone-list-page">
       <input
         type="text"
         placeholder="Search by name or brand..."
@@ -40,9 +40,9 @@ export default function PhoneListPage() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <ul className="phone-grid">
           {phones.map((phone) => (
-            <li key={phone.id}>
+            <li key={phone.id} className="phone-grid__item">
               <PhoneCard phone={phone} />
             </li>
           ))}

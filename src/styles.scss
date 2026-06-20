@@ -1,0 +1,343 @@
+$breakpoint-sm: 393px;
+$breakpoint-md: 834px;
+$breakpoint-lg: 1920px;
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.phone-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 334px);
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: auto;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 377px);
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(5, 334px);
+  }
+
+  &__item {
+    list-style: none;
+    min-width: 0;
+  }
+}
+
+.phone-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #000;
+  margin-left: -1px;
+  margin-top: -1px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #000;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+    z-index: 0;
+  }
+
+  &:hover::before {
+    transform: scaleY(1);
+  }
+
+  &:hover {
+    color: #fff;
+  }
+
+  &__link {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    padding: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+
+  &__image {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+  }
+
+  &__brand,
+  &__name,
+  &__price {
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+
+  &__brand {
+    margin: 0 0 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #767676;
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  &__name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  &__price {
+    margin: 0;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+}
+
+.phone-detail {
+  display: flex;
+    flex-direction: column;
+  gap: 48px;
+  margin: auto;
+  width: 100%;
+//   border: 1px solid green;
+  margin-top: 50px;
+  max-width: 1200px;
+
+
+&__header {
+  display: flex;
+  flex-direction: column;
+//   border: 1px solid blue;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+
+  @media (min-width: $breakpoint-sm) {
+    flex-direction: row;
+  }
+}
+
+&__media {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex: 1 1 0; 
+  min-width: 0; 
+}
+
+&__info {
+  flex: 1 1 0; 
+  min-width: 0;
+  margin: auto;
+//   border: 1px solid red;
+}
+
+&__image-stack {
+  position: relative;
+  width: 100%;
+  max-width: 270px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-md) {
+    max-width: 337px;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    max-width: 510px;
+  }
+}
+
+&__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 1px solid orange;
+
+  &--base {
+    z-index: 1;
+  }
+
+  &--top {
+    z-index: 2;
+    animation: phone-detail-fade-in 0.4s ease forwards;
+  }
+}
+
+@keyframes phone-detail-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  &__image--top {
+    animation: none;
+  }
+}
+
+  &__title {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  &__price {
+    margin: 0 0 32px;
+    font-size: 18px;
+  }
+
+  &__section {
+    border: none;
+    padding: 0;
+    margin: 0 0 32px;
+  }
+
+  &__section-label {
+    padding: 0;
+    margin-bottom: 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  &__storage-options {
+    display: flex;
+  }
+
+  &__storage-option {
+    flex: 1;
+    padding: 16px 8px;
+    border: 1px solid #000;
+    background: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: -1px; // !!!! important border-overlap trick for grid !!!!
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &[aria-pressed="true"] {
+      border-width: 2px;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__color-options {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__color-option {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ccc;
+    padding: 0;
+    cursor: pointer;
+
+    &[aria-pressed="true"] {
+      outline: 2px solid #000;
+      outline-offset: 2px;
+    }
+  }
+
+  &__color-name {
+    margin: 12px 0 0;
+    font-size: 14px;
+  }
+
+  &__add-button {
+    width: 100%;
+    padding: 18px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  &__section-heading {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+&__specs-section {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #000;
+}
+
+&__specs {
+  margin: 0;
+}
+
+&__specs-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e0e0e0;
+
+  dt {
+    margin: 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 14px;
+    color: #444;
+  }
+}
+
+&__similar-section {
+  margin-top: 48px;
+}
+
+&__similar-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+&__similar-item {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  margin-left: -1px; // TODO: fix this
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+}
