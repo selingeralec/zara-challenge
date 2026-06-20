@@ -11,13 +11,17 @@ export function CartProvider({ children }) {
   };
 
   const removeFromCart = (cartItemId) => {
-    setCartItems((prev) => prev.filter((item) => item.cartItemId !== cartItemId));
+    setCartItems((prev) =>
+      prev.filter((item) => item.cartItemId !== cartItemId),
+    );
   };
 
   const cartCount = cartItems.length;
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, cartCount }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, cartCount }}
+    >
       {children}
     </CartContext.Provider>
   );
