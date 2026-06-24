@@ -5,13 +5,17 @@ const headers = {
   "x-api-key": API_KEY,
 };
 
-export const getPhones = async (search = "") => {
-  const url = search
-    ? `${BASE_URL}/products?search=${search}`
-    : `${BASE_URL}/products`;
-  const response = await fetch(url, { headers });
+export const getPhones = async (search = "", limit, offset) => {
+  const params = new URLSearchParams();
+  if (search) params.append("search", search);
+  params.append("limit", limit);
+  params.append("offset", offset);
+  const response = await fetch(`${BASE_URL}/products?${params.toString()}`, {
+    headers,
+  });
   if (!response.ok) throw new Error("Failed to fetch phones");
-  return response.json();
+  const data = await response.json();
+  return data;
 };
 
 export const getPhoneById = async (id) => {

@@ -1,70 +1,156 @@
-# Getting Started with Create React App
+# Zara Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web desarrollada en React para la visualización, búsqueda y gestión de un catálogo de teléfonos móviles.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+### Listado de Teléfonos
 
-### `npm start`
+- Visualización de los primeros 20 teléfonos obtenidos desde la API.
+- Búsqueda en tiempo real por nombre o marca utilizando el filtrado proporcionado por la API.
+- Indicador con el número de resultados encontrados.
+- Diseño responsive basado en los diseños proporcionados en Figma.
+- Tarjetas con:
+  - Imagen del teléfono
+  - Nombre
+  - Marca
+  - Precio base
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Barra de navegación con:
+  - Enlace a la página principal
+  - Indicador con el número de productos añadidos al carrito
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Navegación a la vista de detalle al seleccionar un teléfono.
 
-### `npm test`
+### Detalle de Teléfono
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Información detallada del dispositivo seleccionado.
+- Imagen principal que cambia dinámicamente según el color seleccionado.
+- Selección de color y almacenamiento.
+- Actualización del precio en tiempo real según la capacidad seleccionada.
+- Especificaciones técnicas completas.
+- Botón **"Añadir al carrito"** habilitado únicamente cuando se han seleccionado color y almacenamiento.
+- Sección de productos similares.
 
-### `npm run build`
+### Carrito de Compra
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Visualización de los productos añadidos al carrito.
+- Información mostrada por producto:
+  - Imagen
+  - Nombre
+  - Color seleccionado
+  - Almacenamiento seleccionado
+  - Precio individual
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Eliminación individual de productos.
+- Cálculo automático del importe total.
+- Botón **"Continuar comprando"** para regresar al catálogo.
+- Persistencia del carrito mediante `localStorage`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Tecnologías Utilizadas
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React
+- React Router
+- Context API
+- SCSS
+- Jest
+- React Testing Library
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Estructura Principal
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```text
+src/
+├── api/
+├── components/
+├── context/
+├── hooks/
+└── pages/
+```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Variables de Entorno
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+La configuración de la API se gestiona mediante variables de entorno.
 
-### Code Splitting
+Por motivos de seguridad y buenas prácticas, la URL de la API y la API Key no están incluidas directamente en el código fuente ni se versionan en Git.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+El proyecto incluye un archivo `.env.example` con las variables necesarias:
 
-### Analyzing the Bundle Size
+```env
+REACT_APP_API_KEY=
+REACT_APP_API_URL=
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Para ejecutar la aplicación:
 
-### Making a Progressive Web App
+1. Crear un archivo `.env` en la raíz del proyecto.
+2. Copiar el contenido de `.env.example`.
+3. Completar los valores correspondientes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Ejemplo:
 
-### Advanced Configuration
+```env
+REACT_APP_API_KEY=tu_api_key
+REACT_APP_API_URL=https://api.example.com
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+El archivo `.env` está incluido en `.gitignore` para evitar exponer información sensible.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Instalación
 
-### `npm run build` fails to minify
+Instalar dependencias:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm install
+```
+
+---
+
+## Ejecución del Proyecto
+
+### Modo Desarrollo
+
+Inicia la aplicación con assets sin minimizar y herramientas de desarrollo activadas.
+
+```bash
+npm start
+```
+
+La aplicación estará disponible en:
+
+```text
+http://localhost:3000
+```
+
+### Modo Producción
+
+Genera una versión optimizada para producción con assets concatenados y minimizados.
+
+```bash
+npm run build
+```
+
+Los archivos generados se almacenarán en la carpeta:
+
+```text
+build/
+```
+
+---
+
+## Ejecución de Tests
+
+Ejecutar la batería de pruebas:
+
+```bash
+npm test
+```
+
+---

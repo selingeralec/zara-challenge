@@ -12,8 +12,10 @@ export default function PhoneListPage() {
     const fetchPhones = async () => {
       try {
         setLoading(true);
-        const data = await getPhones(searchValue);
-        setPhones(searchValue ? data : data.slice(0, 20));
+
+        const data = await getPhones(searchValue, 20, 0);
+
+        setPhones(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -21,7 +23,7 @@ export default function PhoneListPage() {
       }
     };
 
-    const timeoutId = setTimeout(fetchPhones, 300);
+    const timeoutId = setTimeout(fetchPhones, 500);
     return () => clearTimeout(timeoutId);
   }, [searchValue]);
 
@@ -29,25 +31,51 @@ export default function PhoneListPage() {
 
   return (
     <div className="phone-list-page">
-      <input
-        type="text"
-        placeholder="Search by name or brand..."
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      <p>{phones.length} results found</p>
+      <div className="phone-list-page__search-wrapper">
+        <div className="phone-list-page__search-inner">
+          <input
+            className="phone-list-page__search"
+            type="text"
+            placeholder="Search for a smartphone..."
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          {searchValue && (
+            <button
+              type="button"
+              className="phone-list-page__search-clear"
+              onClick={() => setSearchValue("")}
+              aria-label="Clear search"
+            >
+              ×
+            </button>
+          )}
+        </div>
+        <p className="phone-list-page__results-count">
+          {phones.length} results
+        </p>
+      </div>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul className="phone-grid">
-          {phones.map((phone) => (
-            <li key={phone.id} className="phone-grid__item">
-              <PhoneCard phone={phone} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="phone-list-page__content">
+        {loading ? (
+          <ul className="phone-grid phone-grid--loading">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <li
+                key={i}
+                className="phone-grid__item phone-grid__item--skeleton"
+              />
+            ))}
+          </ul>
+        ) : (
+          <ul className="phone-grid">
+            {phones.map((phone, index) => (
+              <li key={index} className="phone-grid__item">
+                <PhoneCard phone={phone} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
